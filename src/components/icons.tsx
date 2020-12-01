@@ -2,6 +2,14 @@ import React from 'react';
 import { ImageStyle } from 'react-native';
 import { Icon, IconElement } from '@ui-kitten/components';
 
+export const FlashOutLineIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name="flash-outline" />
+);
+
+export const PricetagsOutLineIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name="pricetags-outline" />
+);
+
 export const ShopeeIcon = (style: ImageStyle): IconElement => (
     <Icon {...style} pack='app' name="shopee" />
 );

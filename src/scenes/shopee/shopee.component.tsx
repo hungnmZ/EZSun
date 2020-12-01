@@ -1,27 +1,26 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Divider, Text } from '@ui-kitten/components';
+import { Tab } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-
 import TopNavigationDefault from '../../components/top-navigation-default.component';
+import { BrandTabBar } from '../../components/brand-tab-bar.component';
+import { PricetagsOutLineIcon, FlashOutLineIcon } from '../../components/icons';
 
 
-export const ShopeeScreen = ({ navigation }): React.ReactElement => {
+export const ShopeeScreen = ({ navigation, state }): React.ReactElement => {
+
+    const onTabSelect = (index: number): void => {
+        navigation.navigate(state.routeNames[index]);
+    };
+
     return (
-        <SafeAreaLayout style={styles.safeArea} insets="top">
+        <SafeAreaLayout insets='top'>
             <TopNavigationDefault />
-            <Divider />
+            <BrandTabBar
+                selectedIndex={state.index}
+                onSelect={onTabSelect}>
+                <Tab icon={FlashOutLineIcon} />
+                <Tab icon={PricetagsOutLineIcon} />
+            </BrandTabBar>
         </SafeAreaLayout>
     );
 };
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-    },
-    searchContainer: {
-        paddingHorizontal: 16,
-        paddingTop: 16,
-        paddingBottom: 16,
-    },
-});

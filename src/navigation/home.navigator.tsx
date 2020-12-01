@@ -14,6 +14,7 @@ import Login from '../layouts/auth/sign-in/index';
 import SignUp from '../layouts/auth/sign-up/index';
 import useAuth from '../hooks/useAuth';
 import { createStackNavigator } from '@react-navigation/stack';
+import { SplashImage } from '../components/splash-image.component';
 
 const Stack = createStackNavigator();
 
@@ -44,7 +45,9 @@ const TabBarVisibleOnRootScreenOptions = ({
 };
 
 export const HomeNavigator = (): React.ReactElement => {
-  const { auth } = useAuth();
+  const { auth, isInitializing } = useAuth();
+
+  if (isInitializing) return <Splash isInitializing />
 
   if (auth == null) {
     return (
@@ -66,5 +69,15 @@ export const HomeNavigator = (): React.ReactElement => {
       <BottomTab.Screen name="Tiki" component={TikiNavigator} />
       <BottomTab.Screen name="Lazada" component={LazadaNavigator} />
     </BottomTab.Navigator>
+  );
+};
+
+
+const Splash = ({ isInitializing }): React.ReactElement => {
+  return (
+    <SplashImage
+      loading={isInitializing}
+      source={require('../assets/images/image-splash.png')}
+    />
   );
 };

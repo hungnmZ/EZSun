@@ -11,8 +11,8 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
-import { AppStateProvider} from '../store/appState';
-import { appStateReducer} from '../reducers/appReducer';
+import { AppStateProvider } from '../store/appState';
+import { appStateReducer } from '../reducers/appReducer';
 import useAuth from '../hooks/useAuth';
 
 const loadingTasks: Task[] = [
@@ -38,15 +38,15 @@ const App = ({ mapping, theme }): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <IconRegistry icons={[EvaIconsPack, AppIconsPack]}/>
+      <IconRegistry icons={[EvaIconsPack, AppIconsPack]} />
       <AppearanceProvider>
         <ApplicationProvider {...currentMapping} theme={currentTheme}>
           <Theming.MappingContext.Provider value={mappingContext}>
             <Theming.ThemeContext.Provider value={themeContext}>
               <SafeAreaProvider>
                 <AppStateProvider reducer={appStateReducer}>
-                  <StatusBar/>
-                  <AppNavigator/>
+                  <StatusBar />
+                  <AppNavigator />
                 </AppStateProvider>
               </SafeAreaProvider>
             </Theming.ThemeContext.Provider>
@@ -58,13 +58,11 @@ const App = ({ mapping, theme }): React.ReactElement => {
 };
 
 const Splash = ({ loading }): React.ReactElement => {
-  const { isInitializing } = useAuth();
-
   return (
-  <SplashImage
-    loading={loading && isInitializing}
-    source={require('../assets/images/image-splash.png')}
-  />
+    <SplashImage
+      loading={loading}
+      source={require('../assets/images/image-splash.png')}
+    />
   );
 };
 
@@ -73,6 +71,6 @@ export default (): React.ReactElement => (
     tasks={loadingTasks}
     initialConfig={defaultConfig}
     placeholder={Splash}>
-    {props => <App {...props}/>}
+    {props => <App {...props} />}
   </AppLoading>
 );
