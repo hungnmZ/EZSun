@@ -22,7 +22,11 @@ export default ({ navigation }): React.ReactElement => {
         return;
       }
 
-      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {}).catch(error => {
+      firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+          console.log("success");
+      })
+      .catch(error => {
         console.log(error);
         alert('Wrong email or password');
       })
