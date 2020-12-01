@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { LayoutsScreen } from '../scenes/layouts/layouts.component';
+import { ShopeeScreen } from '../scenes/shopee/shopee.component';
 
 const Stack = createStackNavigator();
 
-export const LayoutsNavigator = (): React.ReactElement => (
+export const ShopeeNavigator = (): React.ReactElement => (
   <Stack.Navigator headerMode='none'>
-    <Stack.Screen name='Layouts' component={LayoutsScreen}/>
+    <Stack.Screen name='Shopee' component={ShopeeScreen} />
   </Stack.Navigator>
 );

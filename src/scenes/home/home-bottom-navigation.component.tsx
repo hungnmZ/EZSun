@@ -3,10 +3,10 @@ import { BottomNavigationTab, Divider } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { BrandBottomNavigation } from '../../components/brand-bottom-navigation.component';
 import {
-    ColorPaletteIcon,
-    LayoutIcon,
-    StarOutlineIcon,
-    HeartOutlineIcon,
+    HeartIcon,
+    ShopeeIcon,
+    LazadaIcon,
+    TikiIcon
 } from '../../components/icons';
 
 export const HomeBottomNavigation = (props): React.ReactElement => {
@@ -20,15 +20,19 @@ export const HomeBottomNavigation = (props): React.ReactElement => {
             <BrandBottomNavigation
                 appearance="noIndicator"
                 selectedIndex={props.state.index}
-                onSelect={onSelect}
-            >
-                <BottomNavigationTab title="Hot" icon={HeartOutlineIcon} />
-                <BottomNavigationTab title="Layouts" icon={LayoutIcon} />
+                onSelect={onSelect}>
                 <BottomNavigationTab
-                    title="Components"
-                    icon={StarOutlineIcon}
-                />
-                <BottomNavigationTab title="Themes" icon={ColorPaletteIcon} />
+                    title="Hot"
+                    icon={HeartIcon} />
+                <BottomNavigationTab
+                    title="Shopee"
+                    icon={ShopeeIcon} />
+                <BottomNavigationTab
+                    title="Tiki"
+                    icon={TikiIcon} />
+                <BottomNavigationTab
+                    title="Lazada"
+                    icon={LazadaIcon} />
             </BrandBottomNavigation>
         </SafeAreaLayout>
     );
