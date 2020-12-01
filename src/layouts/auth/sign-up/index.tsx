@@ -19,24 +19,64 @@ import {
   TwitterIcon,
 } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
+import { firebase, getSnapshotFromUserAuth } from '../../../firebase/config';
+import { useAppState } from '../../../store/appState';
+import { AppActionType } from '../../../reducers/appReducer';
+
+const isValidEmail = (email: string) => {
+  const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return pattern.test(String(email).toLowerCase());
+};
 
 export default ({ navigation }): React.ReactElement => {
 
-  const [firstName, setFirstName] = React.useState<string>();
-  const [lastName, setLastName] = React.useState<string>();
+  const [fullName, setFullName] = React.useState<string>();
   const [email, setEmail] = React.useState<string>();
   const [password, setPassword] = React.useState<string>();
-  const [dob, setDob] = React.useState<Date>();
-  const [termsAccepted, setTermsAccepted] = React.useState<boolean>(false);
-
+  const [passwordConfirmation, setPasswordConfirmation] = React.useState<string>();
+  const { dispatch } = useAppState();
   const styles = useStyleSheet(themedStyles);
 
-  const onSignUpButtonPress = (): void => {
-    navigation && navigation.goBack();
+  const onSignUpButtonPress = async (): Promise<void> => {
+    // navigation && navigation.goBack();
+    if (!password || !email || !fullName) {
+      alert('All fields are required.');
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      alert('Invalid email!');
+      return;
+    }
+
+    if (password !== passwordConfirmation) {
+      alert('Passwords don\'t match.');
+      return;
+    }
+
+    try {
+      const userData = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const userSnapshot = await getSnapshotFromUserAuth(userData.user, {}, true);
+
+      if (userSnapshot) {
+        dispatch({ type: AppActionType.AUTH_CHANGE, auth: { id: userSnapshot.id, ...userSnapshot.data() } });
+      }
+
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('That email address is already in use!');
+      }
+
+      if (error.code === 'auth/invalid-email') {
+        alert('That email address is invalid!!');
+      }
+      console.error('Error signing up', error);
+    }
+
   };
 
   const onSignInButtonPress = (): void => {
-    navigation && navigation.navigate('SignIn1');
+    navigation && navigation.navigate('SignInScreen');
   };
 
   return (
@@ -110,31 +150,17 @@ export default ({ navigation }): React.ReactElement => {
       </Text>
       <View style={[styles.container, styles.formContainer]}>
         <Input
-          placeholder='Ally'
-          label='FIRST NAME'
+          placeholder='Name'
+          label='FULL NAME'
           autoCapitalize='words'
-          value={firstName}
-          onChangeText={setFirstName}
+          value={fullName}
+          onChangeText={setFullName}
         />
         <Input
           style={styles.formInput}
-          placeholder='Watsan'
-          label='LAST NAME'
-          autoCapitalize='words'
-          value={lastName}
-          onChangeText={setLastName}
-        />
-        <Datepicker
-          style={styles.formInput}
-          placeholder='18/10/1995'
-          label='Date of Birth'
-          date={dob}
-          onSelect={setDob}
-        />
-        <Input
-          style={styles.formInput}
-          placeholder='ally.watsan@gmail.com'
+          placeholder='example@gmail.com'
           label='EMAIL'
+          autoCapitalize='none'
           value={email}
           onChangeText={setEmail}
         />
@@ -142,16 +168,15 @@ export default ({ navigation }): React.ReactElement => {
           style={styles.formInput}
           label='PASSWORD'
           placeholder='Password'
-          secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
         />
-        <CheckBox
-          style={styles.termsCheckBox}
-          textStyle={styles.termsCheckBoxText}
-          checked={termsAccepted}
-          text={'By creating an account, I agree to the Ewa Terms of\nUse and Privacy Policy'}
-          onChange={(checked: boolean) => setTermsAccepted(checked)}
+        <Input
+          style={styles.formInput}
+          label='PASSWORD CONFIRMATION'
+          placeholder='Password confirmation'
+          value={passwordConfirmation}
+          onChangeText={setPasswordConfirmation}
         />
       </View>
       <Button

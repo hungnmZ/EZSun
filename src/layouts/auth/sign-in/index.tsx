@@ -9,17 +9,27 @@ import {
     TwitterIcon,
 } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
+import {firebase} from '../../../firebase/config';
 
 export default ({ navigation }): React.ReactElement => {
     const [email, setEmail] = React.useState<string>();
     const [password, setPassword] = React.useState<string>();
 
     const onSignInButtonPress = (): void => {
-        navigation && navigation.goBack();
+        // navigation && navigation.goBack();
+      if (!password || !email) {
+        alert('All fields are required.');
+        return;
+      }
+
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {}).catch(error => {
+        console.log(error);
+        alert('Wrong email or password');
+      })
     };
 
     const onSignUpButtonPress = (): void => {
-        navigation && navigation.navigate('SignUp1');
+        navigation && navigation.navigate('SignUpScreen');
     };
 
     return (
@@ -31,16 +41,16 @@ export default ({ navigation }): React.ReactElement => {
                 <View style={styles.signInContainer}>
                     <Text
                         style={styles.signInLabel}
-                        status="control"
-                        category="h4"
+                        status='control'
+                        category='h4'
                     >
                         SIGN IN
                     </Text>
                     <Button
                         style={styles.signUpButton}
-                        appearance="ghost"
-                        status="control"
-                        size="giant"
+                        appearance='ghost'
+                        status='control'
+                        size='giant'
                         icon={ArrowForwardIcon}
                         onPress={onSignUpButtonPress}
                     >
@@ -49,50 +59,51 @@ export default ({ navigation }): React.ReactElement => {
                 </View>
                 <View style={styles.formContainer}>
                     <Input
-                        label="EMAIL"
-                        placeholder="Email"
-                        status="control"
+                        label='EMAIL'
+                        placeholder='Email'
+                        status='control'
+                        autoCapitalize='none'
                         value={email}
                         onChangeText={setEmail}
                     />
                     <Input
                         style={styles.passwordInput}
                         secureTextEntry={true}
-                        placeholder="Password"
-                        label="PASSWORD"
-                        status="control"
+                        placeholder='Password'
+                        label='PASSWORD'
+                        status='control'
                         value={password}
                         onChangeText={setPassword}
                     />
                 </View>
                 <Button
-                    status="control"
-                    size="large"
+                    status='control'
+                    size='large'
                     onPress={onSignInButtonPress}
                 >
                     SIGN IN
                 </Button>
                 <View style={styles.socialAuthContainer}>
-                    <Text style={styles.socialAuthHintText} status="control">
+                    <Text style={styles.socialAuthHintText} status='control'>
                         Sign with a social account
                     </Text>
                     <View style={styles.socialAuthButtonsContainer}>
                         <Button
-                            appearance="ghost"
-                            size="giant"
-                            status="control"
+                            appearance='ghost'
+                            size='giant'
+                            status='control'
                             icon={GoogleIcon}
                         />
                         <Button
-                            appearance="ghost"
-                            size="giant"
-                            status="control"
+                            appearance='ghost'
+                            size='giant'
+                            status='control'
                             icon={FacebookIcon}
                         />
                         <Button
-                            appearance="ghost"
-                            size="giant"
-                            status="control"
+                            appearance='ghost'
+                            size='giant'
+                            status='control'
                             icon={TwitterIcon}
                         />
                     </View>
