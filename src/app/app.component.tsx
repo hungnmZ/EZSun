@@ -11,6 +11,9 @@ import { SplashImage } from '../components/splash-image.component';
 import { AppNavigator } from '../navigation/app.navigator';
 import { AppStorage } from '../services/app-storage.service';
 import { Mapping, Theme, Theming } from '../services/theme.service';
+import { AppStateProvider} from '../store/appState';
+import { appStateReducer} from '../reducers/appReducer';
+import useAuth from '../hooks/useAuth';
 
 const loadingTasks: Task[] = [
   // Should be used it when running Expo.
@@ -41,8 +44,10 @@ const App = ({ mapping, theme }): React.ReactElement => {
           <Theming.MappingContext.Provider value={mappingContext}>
             <Theming.ThemeContext.Provider value={themeContext}>
               <SafeAreaProvider>
-                <StatusBar/>
-                <AppNavigator/>
+                <AppStateProvider reducer={appStateReducer}>
+                  <StatusBar/>
+                  <AppNavigator/>
+                </AppStateProvider>
               </SafeAreaProvider>
             </Theming.ThemeContext.Provider>
           </Theming.MappingContext.Provider>
@@ -52,12 +57,16 @@ const App = ({ mapping, theme }): React.ReactElement => {
   );
 };
 
-const Splash = ({ loading }): React.ReactElement => (
+const Splash = ({ loading }): React.ReactElement => {
+  const { isInitializing } = useAuth();
+
+  return (
   <SplashImage
-    loading={loading}
+    loading={loading && isInitializing}
     source={require('../assets/images/image-splash.png')}
   />
-);
+  );
+};
 
 export default (): React.ReactElement => (
   <AppLoading
