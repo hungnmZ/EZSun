@@ -1,19 +1,20 @@
 import React from 'react';
 import { RouteProp } from '@react-navigation/core';
 import {
-    BottomTabNavigationOptions,
-    createBottomTabNavigator,
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 
 import { HotNavigator } from './hot.navigator';
-import { LayoutsNavigator } from './layouts.navigator';
-import { ComponentsNavigator } from './components.navigator';
-import { ThemesNavigator } from './themes.navigator';
+import { ShopeeNavigator } from './shopee.navigator';
+import { TikiNavigator } from './tiki.navigator';
+import { LazadaNavigator } from './lazada.navigator';
 import { HomeBottomNavigation } from '../scenes/home/home-bottom-navigation.component';
 import Login from '../layouts/auth/sign-in/index';
 import SignUp from '../layouts/auth/sign-up/index';
 import useAuth from '../hooks/useAuth';
 import { createStackNavigator } from '@react-navigation/stack';
+import { SplashImage } from '../components/splash-image.component';
 
 const Stack = createStackNavigator();
 
@@ -28,23 +29,25 @@ const initialTabRoute: string = __DEV__ ? 'Hot' : 'Hot';
 /*
  * Can we access it from `HomeNavigator`?
  */
-const ROOT_ROUTES: string[] = ['Hot', 'Layouts', 'Components', 'Themes'];
+const ROOT_ROUTES: string[] = ['Hot', 'Shopee', 'Tiki', 'Lazada'];
 
 const isOneOfRootRoutes = (currentRoute: RouteProp<any, any>): boolean => {
-    return (
-        ROOT_ROUTES.find((route) => currentRoute.name === route) !== undefined
-    );
+  return (
+    ROOT_ROUTES.find((route) => currentRoute.name === route) !== undefined
+  );
 };
 
 const TabBarVisibleOnRootScreenOptions = ({
-    route,
+  route,
 }): BottomTabNavigationOptions => {
-    const currentRoute = route.state && route.state.routes[route.state.index];
-    return { tabBarVisible: currentRoute && isOneOfRootRoutes(currentRoute) };
+  const currentRoute = route.state && route.state.routes[route.state.index];
+  return { tabBarVisible: currentRoute && isOneOfRootRoutes(currentRoute) };
 };
 
 export const HomeNavigator = (): React.ReactElement => {
-  const {auth} = useAuth();
+  const { auth, isInitializing } = useAuth();
+
+  if (isInitializing) return <Splash isInitializing />
 
   if (auth == null) {
     return (
@@ -57,14 +60,24 @@ export const HomeNavigator = (): React.ReactElement => {
 
   return (
     <BottomTab.Navigator
-        screenOptions={TabBarVisibleOnRootScreenOptions}
-        initialRouteName={initialTabRoute}
-        tabBar={(props) => <HomeBottomNavigation {...props} />}
+      screenOptions={TabBarVisibleOnRootScreenOptions}
+      initialRouteName={initialTabRoute}
+      tabBar={(props) => <HomeBottomNavigation {...props} />}
     >
-        <BottomTab.Screen name='Hot' component={HotNavigator} />
-        <BottomTab.Screen name='Layouts' component={LayoutsNavigator} />
-        <BottomTab.Screen name='Components' component={ComponentsNavigator} />
-        <BottomTab.Screen name='Themes' component={ThemesNavigator} />
-    </BottomTab.Navigator >
+      <BottomTab.Screen name="Hot" component={HotNavigator} />
+      <BottomTab.Screen name="Shopee" component={ShopeeNavigator} />
+      <BottomTab.Screen name="Tiki" component={TikiNavigator} />
+      <BottomTab.Screen name="Lazada" component={LazadaNavigator} />
+    </BottomTab.Navigator>
+  );
+};
+
+
+const Splash = ({ isInitializing }): React.ReactElement => {
+  return (
+    <SplashImage
+      loading={isInitializing}
+      source={require('../assets/images/image-splash.png')}
+    />
   );
 };

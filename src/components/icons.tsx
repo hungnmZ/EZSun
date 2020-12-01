@@ -2,8 +2,32 @@ import React from 'react';
 import { ImageStyle } from 'react-native';
 import { Icon, IconElement } from '@ui-kitten/components';
 
-export const HeartOutlineIcon = (style: ImageStyle): IconElement => (
-    <Icon {...style} name='heart-outline' />
+export const FlashOutLineIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name="flash-outline" />
+);
+
+export const PricetagsOutLineIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name="pricetags-outline" />
+);
+
+export const ShopeeIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} pack='app' name="shopee" />
+);
+
+export const TikiIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} pack='app' name="tiki" />
+);
+
+export const LazadaIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} pack='app' name="lazada" />
+);
+
+export const BellOutlineIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name="bell-outline" />
+);
+
+export const HeartIcon = (style: ImageStyle): IconElement => (
+    <Icon {...style} name="heart" />
 );
 
 export const ArrowIosBackIcon = (style: ImageStyle): IconElement => (
