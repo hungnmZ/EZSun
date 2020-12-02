@@ -15,6 +15,7 @@ import SignUp from '../layouts/auth/sign-up/index';
 import useAuth from '../hooks/useAuth';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SplashImage } from '../components/splash-image.component';
+import { UsersNavigator } from './users.navigator';
 
 const Stack = createStackNavigator();
 
@@ -68,6 +69,7 @@ export const HomeNavigator = (): React.ReactElement => {
       <BottomTab.Screen name="Shopee" component={ShopeeNavigator} />
       <BottomTab.Screen name="Tiki" component={TikiNavigator} />
       <BottomTab.Screen name="Lazada" component={LazadaNavigator} />
+      <BottomTab.Screen name="User" component={UsersNavigator} />
     </BottomTab.Navigator>
   );
 };
