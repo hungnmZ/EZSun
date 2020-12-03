@@ -30,7 +30,7 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
     <SafeAreaLayout
       style={styles.safeArea}
       insets='top'>
-      <TopNavigationDefault />
+      <TopNavigationDefault navigation={navigation} name="Hot" />
       <Divider />
       <Text>
         {JSON.stringify(auth)}

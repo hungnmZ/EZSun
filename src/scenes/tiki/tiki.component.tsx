@@ -14,7 +14,7 @@ export const TikiScreen = ({ navigation, state }): React.ReactElement => {
 
     return (
         <SafeAreaLayout insets='top'>
-            <TopNavigationDefault />
+            <TopNavigationDefault navigation={navigation} />
             <BrandTabBar
                 selectedIndex={state.index}
                 onSelect={onTabSelect}>

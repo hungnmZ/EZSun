@@ -33,9 +33,6 @@ export const HomeBottomNavigation = (props): React.ReactElement => {
                 <BottomNavigationTab
                     title="Lazada"
                     icon={LazadaIcon} />
-                <BottomNavigationTab
-                    title="User"
-                    icon={LazadaIcon} />
             </BrandBottomNavigation>
         </SafeAreaLayout>
     );

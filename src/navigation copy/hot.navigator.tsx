@@ -6,6 +6,7 @@ const Stack = createStackNavigator();
 
 export const HotNavigator = (): React.ReactElement => (
   <Stack.Navigator headerMode='none'>
-    <Stack.Screen name='Hot' component={HotScreen}/>
+    <Stack.Screen name='Hot' component={HotScreen} />
+
   </Stack.Navigator>
 );
