@@ -6,7 +6,8 @@ import {
     HeartIcon,
     ShopeeIcon,
     LazadaIcon,
-    TikiIcon
+    TikiIcon,
+    PersonIcon,
 } from '../../components/icons';
 
 export const HomeBottomNavigation = (props): React.ReactElement => {
@@ -20,19 +21,13 @@ export const HomeBottomNavigation = (props): React.ReactElement => {
             <BrandBottomNavigation
                 appearance="noIndicator"
                 selectedIndex={props.state.index}
-                onSelect={onSelect}>
-                <BottomNavigationTab
-                    title="Hot"
-                    icon={HeartIcon} />
-                <BottomNavigationTab
-                    title="Shopee"
-                    icon={ShopeeIcon} />
-                <BottomNavigationTab
-                    title="Tiki"
-                    icon={TikiIcon} />
-                <BottomNavigationTab
-                    title="Lazada"
-                    icon={LazadaIcon} />
+                onSelect={onSelect}
+            >
+                <BottomNavigationTab title="Hot" icon={HeartIcon} />
+                <BottomNavigationTab title="Shopee" icon={ShopeeIcon} />
+                <BottomNavigationTab title="Tiki" icon={TikiIcon} />
+                <BottomNavigationTab title="Lazada" icon={LazadaIcon} />
+                <BottomNavigationTab title="User" icon={PersonIcon} />
             </BrandBottomNavigation>
         </SafeAreaLayout>
     );
