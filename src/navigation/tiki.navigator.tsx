@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TikiScreen } from '../scenes/tiki/tiki.component';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { FlashSaleScreen } from '../scenes/tiki/tiki-flash-sale.component';
+import { FlashSaleScreen } from '../scenes/tiki/tiki-flashsale.component';
 import { DiscountScreen } from '../scenes/tiki/tiki-discount.component';
 
 const Stack = createStackNavigator();

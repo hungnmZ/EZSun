@@ -7,12 +7,9 @@ import { SearchIcon, BellOutlineIcon } from '../../components/icons';
 import TopNavigationDefault from '../../components/top-navigation-default.component';
 
 import { data } from './data';
-import useAuth from '../../hooks/useAuth';
-import { firebase } from '../../firebase/config';
 import HotApi from '../../api/hot.api';
 
 export const HotScreen = ({ navigation }): React.ReactElement => {
-  const { auth } = useAuth();
 
   React.useEffect(() => {
     async function fetchData() {
@@ -32,12 +29,6 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
       insets='top'>
       <TopNavigationDefault navigation={navigation} name="Hot" />
       <Divider />
-      <Text>
-        {JSON.stringify(auth)}
-      </Text>
-      <Button onPress={() => firebase.auth().signOut()}>
-        Sign out
-      </Button>
       <MenuGridList
         data={data}
         onItemPress={onItemPress}
@@ -49,10 +40,5 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-  },
-  searchContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-  },
+  }
 });
