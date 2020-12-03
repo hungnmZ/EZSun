@@ -1,14 +1,19 @@
 import React from 'react';
-import { TopNavigation, TopNavigationAction } from '@ui-kitten/components';
+import { TopNavigation, TopNavigationAction, Input } from '@ui-kitten/components';
 import { BellOutlineIcon, SearchIcon } from './icons';
 
-const TopNavigationDefault = (): React.ReactElement => {
+const TopNavigationDefault = ({ navigation, name }): React.ReactElement => {
+    const onNotificationPress = (): void => {
+        navigation.navigate('Notification',);
+    };
+    const onSearchPress = (): void => {
+        navigation.navigate('Search', { routeName: name });
+    }
     const renderSearchAction = (): React.ReactElement => (
-        <TopNavigationAction icon={SearchIcon} onPress={() => {}} />
+        <TopNavigationAction icon={SearchIcon} onPress={() => onSearchPress()} />
     );
-
     const renderNotificationAction = (): React.ReactElement => (
-        <TopNavigationAction icon={BellOutlineIcon} onPress={() => {}} />
+        <TopNavigationAction icon={BellOutlineIcon} onPress={() => onNotificationPress()} />
     );
 
     return (
