@@ -5,9 +5,7 @@ import TopNavigationDefault from '../../components/top-navigation-default.compon
 import { BrandTabBar } from '../../components/brand-tab-bar.component';
 import { PricetagsOutLineIcon, FlashOutLineIcon } from '../../components/icons';
 
-
 export const ShopeeScreen = ({ navigation, state }): React.ReactElement => {
-
     const onTabSelect = (index: number): void => {
         navigation.navigate(state.routeNames[index]);
     };
@@ -15,9 +13,7 @@ export const ShopeeScreen = ({ navigation, state }): React.ReactElement => {
     return (
         <SafeAreaLayout insets='top'>
             <TopNavigationDefault navigation={navigation} />
-            <BrandTabBar
-                selectedIndex={state.index}
-                onSelect={onTabSelect}>
+            <BrandTabBar selectedIndex={state.index} onSelect={onTabSelect}>
                 <Tab icon={FlashOutLineIcon} />
                 <Tab icon={PricetagsOutLineIcon} />
             </BrandTabBar>

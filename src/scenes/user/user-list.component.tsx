@@ -6,26 +6,20 @@ import TopNavigationDefault from '../../components/top-navigation-default.compon
 import { StyleSheet } from 'react-native';
 
 export const UsersListScreen = ({ navigation }): React.ReactElement => {
+    const onItemPress = (index: number): void => {
+        navigation.navigate(data[index].route);
+    };
 
-  const onItemPress = (index: number): void => {
-    navigation.navigate(data[index].route);
-  };
-
-  return (
-    <SafeAreaLayout
-      style={styles.container}
-      insets='top'>
-      <TopNavigationDefault />
-      <LayoutList
-        data={data}
-        onItemPress={onItemPress}
-      />
-    </SafeAreaLayout>
-  );
+    return (
+        <SafeAreaLayout style={styles.container} insets='top'>
+            <TopNavigationDefault navigation={navigation} />
+            <LayoutList data={data} onItemPress={onItemPress} />
+        </SafeAreaLayout>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });

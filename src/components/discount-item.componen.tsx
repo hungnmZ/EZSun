@@ -19,6 +19,7 @@ import { DiscountItem } from '../model/discount-item.model';
 
 export const DiscountItemComponent = ({
     info,
+    backgroundColorImg,
     onLikeItem,
     onPressDiscountItem,
 }): React.ReactElement => {
@@ -48,7 +49,13 @@ export const DiscountItemComponent = ({
     const ItemHeader = (
         info: ListRenderItemInfo<DiscountItem>,
     ): React.ReactElement => (
-        <ImageBackground style={styles.itemHeader} source={info.item.image} />
+        <ImageBackground
+            style={{
+                backgroundColor: backgroundColorImg,
+                height: 160,
+            }}
+            source={info.item.image}
+        />
     );
 
     return (
@@ -71,10 +78,6 @@ const themedStyles = StyleService.create({
         margin: 8,
         maxWidth: Dimensions.get('window').width / 2 - 24,
         backgroundColor: 'background-basic-color-1',
-    },
-    itemHeader: {
-        height: 160,
-        backgroundColor: '#EE4D2D',
     },
     itemFooter: {
         flexDirection: 'row',

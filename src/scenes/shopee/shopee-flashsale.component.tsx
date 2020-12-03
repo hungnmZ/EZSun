@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    List,
-    Text,
-    StyleService,
-    useStyleSheet,
-    Button,
-    Card,
-} from '@ui-kitten/components';
+import { List, StyleService, useStyleSheet } from '@ui-kitten/components';
 import ShopeeApi from '../../api/shopee.api';
 import { FlashSaleItem } from '../../model/flashsale-item.model';
 import { FlashSaleItemComponent } from '../../components/flashsale-item.component';
@@ -35,9 +28,9 @@ export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
                             { uri: item.image },
                             item.sale_price,
                             item.origin_price,
-                            item.link
-                        )
-                    )
+                            item.link,
+                        ),
+                    ),
                 );
             }
 

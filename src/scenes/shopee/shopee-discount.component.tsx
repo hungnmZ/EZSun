@@ -48,9 +48,9 @@ export const DiscountScreen = ({ navigation }): React.ReactElement => {
                             item.name,
                             item.start,
                             item.end,
-                            item.code
-                        )
-                    )
+                            item.code,
+                        ),
+                    ),
                 );
             }
 
@@ -69,6 +69,7 @@ export const DiscountScreen = ({ navigation }): React.ReactElement => {
                     <DiscountItemComponent
                         info={info}
                         onLikeItem={onLikeItem}
+                        backgroundColorImg='#EE4D2D'
                         onPressDiscountItem={onPressDiscountItem}
                     />
                 )}
