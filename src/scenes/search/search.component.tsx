@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Input, Divider, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
+import {
+    Input,
+    Divider,
+    TopNavigation,
+    TopNavigationAction,
+} from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { ArrowIosBackIcon, SearchIcon, CloseIcon } from '../../components/icons';
+import {
+    ArrowIosBackIcon,
+    SearchIcon,
+    CloseIcon,
+} from '../../components/icons';
 import { data } from '../hot/data';
 import { MenuGridList } from '../../components/menu-grid-list.component';
-
-
 
 export const SearchScreen = ({ navigation }): React.ReactElement => {
     const onItemPress = (index: number): void => {
@@ -26,23 +33,24 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Input
                 placeholder={'Search'}
-                style={{ flex: 5, borderRadius: 20 }}
+                style={{
+                    flex: 4,
+                    borderRadius: 20,
+                    top: 2,
+                }}
                 value={value}
-                onChangeText={nextValue => setValue(nextValue)}
+                onChangeText={(nextValue) => setValue(nextValue)}
                 keyboardType='web-search'
-
             />
             <TopNavigationAction
                 icon={SearchIcon}
-                style={{ flex: 1, borderRadius: 20 }}
+                style={{ flex: 1, borderRadius: 20, left: 3 }}
             />
         </View>
     );
 
     return (
-        <SafeAreaLayout
-            style={styles.safeArea}
-            insets='top'>
+        <SafeAreaLayout style={styles.safeArea} insets='top'>
             <TopNavigation
                 leftControl={BackAction()}
                 rightControls={SearchBar()}
@@ -50,7 +58,9 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
             <Divider />
             <MenuGridList
                 // em lấy data từ trang hot để hiển thị cho trang này luôn
-                data={data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()))}
+                data={data.filter((item) =>
+                    item.title.toLowerCase().includes(value.toLowerCase()),
+                )}
                 onItemPress={onItemPress}
             />
         </SafeAreaLayout>
@@ -61,5 +71,4 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
     },
-
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LazadaScreen } from '../scenes/lazada/lazada.component';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { FlashSaleScreen } from '../scenes/lazada/lazada-flash-sale.component';
+import { FlashSaleScreen } from '../scenes/lazada/lazada-flashsale.component';
 import { DiscountScreen } from '../scenes/lazada/lazada-discount.component';
 
 const Stack = createStackNavigator();

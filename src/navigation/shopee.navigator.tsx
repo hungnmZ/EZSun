@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { FlashSaleScreen } from '../scenes/shopee/shopee-flash-sale.component';
+import { FlashSaleScreen } from '../scenes/shopee/shopee-flashsale.component';
 import { DiscountScreen } from '../scenes/shopee/shopee-discount.component';
 import { ShopeeScreen } from '../scenes/shopee/shopee.component';
 

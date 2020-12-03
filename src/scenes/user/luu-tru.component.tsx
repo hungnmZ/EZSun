@@ -22,7 +22,7 @@ export const LuuTruScreen = ({ navigation }): React.ReactElement => {
         title='Lưu trữ'
         leftControl={renderBackAction()}
       />
-      <ContentView navigation={navigation}/>
+      <ContentView />
     </SafeAreaLayout>
   );
 };
