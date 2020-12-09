@@ -45,7 +45,11 @@ export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
             data={products}
             numColumns={2}
             renderItem={(info) => (
-                <FlashSaleItemComponent info={info} onLikeItem={onLikeItem} />
+                <FlashSaleItemComponent
+                    info={info}
+                    onLikeItem={onLikeItem}
+                    isShowTag={false}
+                />
             )}
         />
     );
