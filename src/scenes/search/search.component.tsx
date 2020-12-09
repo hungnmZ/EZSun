@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
     Input,
     Divider,
@@ -7,19 +7,9 @@ import {
     TopNavigationAction,
 } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import {
-    ArrowIosBackIcon,
-    SearchIcon,
-    CloseIcon,
-} from '../../components/icons';
-import { data } from '../hot/data';
-import { MenuGridList } from '../../components/menu-grid-list.component';
+import { ArrowIosBackIcon, SearchIcon } from '../../components/icons';
 
 export const SearchScreen = ({ navigation }): React.ReactElement => {
-    const onItemPress = (index: number): void => {
-        navigation.navigate(data[index].route);
-    };
-
     const BackAction = (): React.ReactElement => (
         <TopNavigationAction
             icon={ArrowIosBackIcon}
@@ -56,13 +46,6 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
                 rightControls={SearchBar()}
             />
             <Divider />
-            <MenuGridList
-                // em lấy data từ trang hot để hiển thị cho trang này luôn
-                data={data.filter((item) =>
-                    item.title.toLowerCase().includes(value.toLowerCase()),
-                )}
-                onItemPress={onItemPress}
-            />
         </SafeAreaLayout>
     );
 };

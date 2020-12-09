@@ -9,7 +9,7 @@ import {
     TwitterIcon,
 } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
-import {firebase} from '../../../firebase/config';
+import { firebase } from '../../../firebase/config';
 
 export default ({ navigation }): React.ReactElement => {
     const [email, setEmail] = React.useState<string>();
@@ -17,15 +17,19 @@ export default ({ navigation }): React.ReactElement => {
 
     const onSignInButtonPress = (): void => {
         // navigation && navigation.goBack();
-      if (!password || !email) {
-        alert('All fields are required.');
-        return;
-      }
+        if (!password || !email) {
+            alert('All fields are required.');
+            return;
+        }
 
-      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {}).catch(error => {
-        console.log(error);
-        alert('Wrong email or password');
-      })
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {})
+            .catch((error) => {
+                console.log(error);
+                alert('Wrong email or password');
+            });
     };
 
     const onSignUpButtonPress = (): void => {
@@ -36,7 +40,7 @@ export default ({ navigation }): React.ReactElement => {
         <KeyboardAvoidingView>
             <ImageOverlay
                 style={styles.container}
-                source={require('./assets/image-background.jpg')}
+                source={require('./assets/image-background.png')}
             >
                 <View style={styles.signInContainer}>
                     <Text
