@@ -1,14 +1,14 @@
-import { ImageSourcePropType } from 'react-native';
 import { currencyFormat } from '../util/util';
 
 export class FlashSaleItem {
     constructor(
         readonly _id: string,
-        readonly title: string,
-        readonly image: object,
+        readonly sale_title: string,
+        readonly image: string,
         readonly sale_price: number,
         readonly origin_price: number,
         readonly link: string,
+        readonly uid: string,
     ) {}
 
     get formattedSalePrice(): string {
@@ -25,18 +25,46 @@ export class FlashSaleItem {
     }
 
     get getLabelTag(): string {
-        let labelTag: string = 'Shopee';
+        let labelTag: string = 'SHOPEE';
 
         if (this.link.includes('shopee')) {
-            labelTag = 'Shopee';
+            labelTag = 'SHOPEE';
         }
         if (this.link.includes('tiki')) {
-            labelTag = 'Tiki';
+            labelTag = 'TIKI';
         }
         if (this.link.includes('lazada')) {
-            labelTag = 'Lazada';
+            labelTag = 'LAZADA';
         }
 
         return labelTag;
+    }
+
+    static get flashSaleItemConverter() {
+        return {
+            toFirestore: function (ref) {
+                return {
+                    _id: ref._id,
+                    sale_title: ref.sale_title,
+                    image: ref.image,
+                    sale_price: ref.sale_price,
+                    origin_price: ref.origin_price,
+                    link: ref.link,
+                    uid: ref.uid,
+                };
+            },
+            fromFirestore: function (snapshot, options) {
+                const data = snapshot.data(options);
+                return new FlashSaleItem(
+                    data._id,
+                    data.sale_title,
+                    data.image,
+                    data.sale_price,
+                    data.origin_price,
+                    data.link,
+                    data.uid,
+                );
+            },
+        };
     }
 }

@@ -4,7 +4,7 @@ import {
     View,
     ImageBackground,
     Dimensions,
-    Linking,
+    ImageSourcePropType,
 } from 'react-native';
 import {
     Card,
@@ -16,14 +16,18 @@ import {
 } from '@ui-kitten/components';
 import { HeartIcon } from './icons';
 import { DiscountItem } from '../model/discount-item.model';
+import StorageApi from '../api/storage.api';
 
 export const DiscountItemComponent = ({
     info,
     backgroundColorImg,
-    onLikeItem,
     onPressDiscountItem,
 }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
+
+    const onLikeItem = (info) => {
+        StorageApi.saveDiscountItem('discount-items', info.item);
+    };
 
     const ItemFooter = (
         info: ListRenderItemInfo<DiscountItem>,
@@ -48,15 +52,38 @@ export const DiscountItemComponent = ({
 
     const ItemHeader = (
         info: ListRenderItemInfo<DiscountItem>,
-    ): React.ReactElement => (
-        <ImageBackground
-            style={{
-                backgroundColor: backgroundColorImg,
-                height: 160,
-            }}
-            source={info.item.image}
-        />
-    );
+    ): React.ReactElement => {
+        const imageLink = (): ImageSourcePropType => {
+            switch (info.item.image) {
+                case 'shopee':
+                    return require('../assets/images/shopee-discount.png');
+                case 'tiki':
+                    return require('../assets/images/tiki-discount.png');
+                case 'lazada':
+                    return require('../assets/images/lazada-discount.png');
+            }
+            return;
+        };
+
+        return (
+            <Layout
+                style={{
+                    backgroundColor: backgroundColorImg,
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                }}
+            >
+                <ImageBackground
+                    style={{
+                        backgroundColor: backgroundColorImg,
+                        height: 80,
+                        width: 80,
+                    }}
+                    source={imageLink()}
+                />
+            </Layout>
+        );
+    };
 
     return (
         <Card
@@ -86,5 +113,6 @@ const themedStyles = StyleService.create({
     },
     iconButton: {
         paddingHorizontal: 0,
+        backgroundColor: '#FF6720',
     },
 });
