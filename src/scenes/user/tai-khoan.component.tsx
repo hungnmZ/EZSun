@@ -2,15 +2,16 @@ import React, { useCallback, useReducer } from 'react';
 import { StyleSheet } from 'react-native';
 import {
     Button,
-    Text,
     TopNavigation,
     TopNavigationAction,
 } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { ArrowIosBackIcon } from '../../components/icons';
 import ContentView from '../../layouts/user/tai-khoan';
+import { firebase } from '../../firebase/config';
 
 export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
+    const [user, setUser] = React.useState(firebase.auth().currentUser);
     const [isEdit, setEditBol] = React.useState(false);
     const [isSave, setSaveBol] = React.useState(true);
 
@@ -31,6 +32,17 @@ export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
         setEditBol(false);
         setSaveBol(true);
         renderOverflowMenuAction();
+        setUser(user);
+        console.log(user);
+        user.updateProfile({
+            displayName: user.displayName
+        }).then(function() {
+            // Update successful.
+            console.log("sucess");
+        }).catch(function(error) {
+            // An error happened.
+            console.log("err");
+        });
     };
 
     const renderOverflowMenuAction = () =>

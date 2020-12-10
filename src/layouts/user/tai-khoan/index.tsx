@@ -8,7 +8,6 @@ const data: Article[] = [Article.howToEatHealthy()];
 
 export default ({ isEdit, isSave, navigation }): React.ReactElement => {
     const [ngaysinh, setNgaySinh] = React.useState(new Date());
-    const [ho, setHo] = React.useState('Nguyễn');
     const [ten, setTen] = React.useState('Châu');
     const [email, setEmail] = React.useState('abc@gmail.com');
     const [sdt, setSdt] = React.useState('0987654321');
@@ -21,25 +20,13 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
             <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                     <Text style={{ flex: 1, marginTop: 10, color: 'gray' }}>
-                        Tên
+                        Họ và tên
                     </Text>
                     <Input
                         style={{ flex: 2 }}
                         placeholder=''
                         value={ten}
                         onChangeText={(nextValue) => setTen(nextValue)}
-                    />
-                </View>
-
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <Text style={{ flex: 1, marginTop: 10, color: 'gray' }}>
-                        Họ
-                    </Text>
-                    <Input
-                        style={{ flex: 2 }}
-                        placeholder=''
-                        value={ho}
-                        onChangeText={(nextValue) => setHo(nextValue)}
                     />
                 </View>
 
@@ -84,18 +71,7 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                         onChangeText={(nextValue) => setSdt(nextValue)}
                     />
                 </View>
-
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <Text style={{ flex: 1, marginTop: 10, color: 'gray' }}>
-                        Email
-                    </Text>
-                    <Input
-                        style={{ flex: 2 }}
-                        placeholder=''
-                        value={email}
-                        onChangeText={(nextValue) => setEmail(nextValue)}
-                    />
-                </View>
+                
                 {/* 
         <View style={{flex: 1,  flexDirection: 'row'}}>
           <Text style={{flex: 1,marginTop:10,color:'gray'}}>Mật khẩu</Text>
@@ -121,20 +97,6 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Tên</Text>
                     <Text style={{ flex: 2, textAlign: 'right' }}>{ten}</Text>
-                </View>
-
-                <View
-                    style={{
-                        flex: 1,
-                        marginTop: 20,
-                        flexDirection: 'row',
-                        height: 30,
-                        borderBottomColor: '#ecf0f1',
-                        borderBottomWidth: 1,
-                    }}
-                >
-                    <Text style={{ flex: 1, color: 'gray' }}>Họ</Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{ho}</Text>
                 </View>
 
                 <View
@@ -199,36 +161,6 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Email</Text>
                     <Text style={{ flex: 2, textAlign: 'right' }}>{email}</Text>
-                </View>
-
-                <View
-                    style={{
-                        flex: 1,
-                        marginTop: 50,
-                        flexDirection: 'row',
-                        height: 30,
-                        borderBottomColor: '#ecf0f1',
-                        borderBottomWidth: 1,
-                    }}
-                >
-                    <Text style={{ flex: 1, color: 'gray' }}>
-                        Tên đăng nhập
-                    </Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>chaune</Text>
-                </View>
-
-                <View
-                    style={{
-                        flex: 1,
-                        marginTop: 20,
-                        flexDirection: 'row',
-                        height: 30,
-                        borderBottomColor: '#ecf0f1',
-                        borderBottomWidth: 1,
-                    }}
-                >
-                    <Text style={{ flex: 1, color: 'gray' }}>Mật khẩu</Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>*****</Text>
                 </View>
             </View>
         );

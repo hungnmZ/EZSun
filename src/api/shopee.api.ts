@@ -3,7 +3,7 @@ import httpService from '../services/http.service';
 export default {
     getFlashSale: async () =>
         await httpService.get(
-            'https://api.sunsale.vn/api/v1/pages/products/Shopee?page=1&quantity=20',
+            'https://api.sunsale.vn/api/v1/pages/products/Shopee?page=1&quantity=50',
         ),
     getDiscount: async () =>
         await httpService.get(

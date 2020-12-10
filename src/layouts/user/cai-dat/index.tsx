@@ -22,7 +22,10 @@ const data: Article[] = [Article.howToEatHealthy()];
 export default ({ navigation }): React.ReactElement => {
     const renderItem = (): React.ReactElement => (
         <View>
-            <Card style={styles.item}>
+            <Card
+                style={styles.item}
+                onPress={() => navigation.navigate('DoiMatKhau')}
+            >
                 <Text>Đổi mật khẩu</Text>
             </Card>
             <Card

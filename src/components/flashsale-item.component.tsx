@@ -20,12 +20,33 @@ import { FlashSaleItem } from '../model/flashsale-item.model';
 export const FlashSaleItemComponent = ({
     info,
     onLikeItem,
+    isShowTag,
 }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
 
     const openFlashSale = (link: string) => {
         Linking.openURL(link);
     };
+
+    const ItemHeader = (
+        info: ListRenderItemInfo<FlashSaleItem>,
+    ): React.ReactElement => (
+        <Layout>
+            {isShowTag ? (
+                <Button
+                    style={{ backgroundColor: '#FF6721', borderWidth: 0 }}
+                    size='small'
+                    status='primary'
+                >
+                    {info.item.getLabelTag}
+                </Button>
+            ) : null}
+            <ImageBackground
+                style={styles.itemHeader}
+                source={info.item.image}
+            />
+        </Layout>
+    );
 
     const ItemFooter = (
         info: ListRenderItemInfo<FlashSaleItem>,
@@ -50,12 +71,6 @@ export const FlashSaleItemComponent = ({
                 icon={HeartIcon}
             />
         </View>
-    );
-
-    const ItemHeader = (
-        info: ListRenderItemInfo<FlashSaleItem>,
-    ): React.ReactElement => (
-        <ImageBackground style={styles.itemHeader} source={info.item.image} />
     );
 
     return (
