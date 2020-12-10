@@ -10,19 +10,18 @@ import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import TopNavigationDefault from '../../components/top-navigation-default.component';
 
 import HotApi from '../../api/hot.api';
+import useAuth from '../../hooks/useAuth';
 
 export const HotScreen = ({ navigation }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
 
     const [products, setProducts] = React.useState<FlashSaleItem[]>();
 
-    const onLikeItem = (info): void => {
-        console.log(info);
-    };
+    const { auth } = useAuth();
 
     React.useEffect(() => {
         const fetchData = async () => {
-            const data: any = await HotApi.getHotProduct();
+            const data: any = await HotApi.getFlashSale();
 
             let temp: FlashSaleItem[] = [];
 
@@ -32,10 +31,11 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
                         new FlashSaleItem(
                             item._id,
                             item.sale_title,
-                            { uri: item.image },
+                            item.image,
                             item.sale_price,
                             item.origin_price,
                             item.link,
+                            auth.id,
                         ),
                     ),
                 );
@@ -80,11 +80,7 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
                 data={products}
                 numColumns={2}
                 renderItem={(info) => (
-                    <FlashSaleItemComponent
-                        info={info}
-                        onLikeItem={onLikeItem}
-                        isShowTag={true}
-                    />
+                    <FlashSaleItemComponent info={info} isShowTag={true} />
                 )}
             />
         </SafeAreaLayout>

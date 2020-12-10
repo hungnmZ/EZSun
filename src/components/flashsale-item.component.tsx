@@ -16,10 +16,10 @@ import {
 } from '@ui-kitten/components';
 import { HeartIcon } from './icons';
 import { FlashSaleItem } from '../model/flashsale-item.model';
+import StorageApi from '../api/storage.api';
 
 export const FlashSaleItemComponent = ({
     info,
-    onLikeItem,
     isShowTag,
 }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
@@ -28,22 +28,33 @@ export const FlashSaleItemComponent = ({
         Linking.openURL(link);
     };
 
+    const onLikeItem = (info) => {
+        StorageApi.saveFlashSale('flash-sales', info.item);
+    };
+
     const ItemHeader = (
         info: ListRenderItemInfo<FlashSaleItem>,
     ): React.ReactElement => (
         <Layout>
             {isShowTag ? (
-                <Button
-                    style={{ backgroundColor: '#FF6721', borderWidth: 0 }}
-                    size='small'
-                    status='primary'
+                <Text
+                    style={{
+                        textAlign: 'center',
+                        backgroundColor: '#8F9BB3',
+                        color: 'white',
+                        padding: 3,
+                    }}
                 >
                     {info.item.getLabelTag}
-                </Button>
+                </Text>
             ) : null}
             <ImageBackground
-                style={styles.itemHeader}
-                source={info.item.image}
+                style={{
+                    height: 140,
+                    overflow: 'visible',
+                    position: 'relative',
+                }}
+                source={{ uri: info.item.image }}
             />
         </Layout>
     );
@@ -81,7 +92,7 @@ export const FlashSaleItemComponent = ({
             onPress={() => openFlashSale(info.item.linkHandle)}
         >
             <Text category='s1' numberOfLines={2}>
-                {info.item.title}
+                {info.item.sale_title}
             </Text>
         </Card>
     );
@@ -94,9 +105,6 @@ const themedStyles = StyleService.create({
         maxWidth: Dimensions.get('window').width / 2 - 24,
         backgroundColor: 'background-basic-color-1',
     },
-    itemHeader: {
-        height: 140,
-    },
     itemFooter: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -104,6 +112,7 @@ const themedStyles = StyleService.create({
     },
     iconButton: {
         paddingHorizontal: 0,
+        backgroundColor: '#FF6720',
     },
     originPrice: {
         textDecorationLine: 'line-through',

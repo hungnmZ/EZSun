@@ -6,6 +6,7 @@ import { DiscountItemComponent } from '../../components/discount-item.componen';
 import { ModalDiscountCode } from '../../components/modal-discount-code.component';
 
 import LazadaApi from '../../api/lazada.api';
+import useAuth from '../../hooks/useAuth';
 
 export const DiscountScreen = ({ navigation }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
@@ -19,10 +20,6 @@ export const DiscountScreen = ({ navigation }): React.ReactElement => {
         setCurrDiscountItem,
     ] = React.useState<DiscountItem>(Object);
 
-    const onLikeItem = (info): void => {
-        console.log(info);
-    };
-
     const onPressDiscountItem = (info) => {
         setShowModalCopy(true);
         setCurrDiscountItem(info.item);
@@ -32,6 +29,8 @@ export const DiscountScreen = ({ navigation }): React.ReactElement => {
         setShowModalCopy(false);
         Clipboard.setString(currDiscountItem.code);
     };
+
+    const { auth } = useAuth();
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -44,11 +43,13 @@ export const DiscountScreen = ({ navigation }): React.ReactElement => {
                     temp.push(
                         new DiscountItem(
                             item._id,
-                            require('../../assets/images/lazada-discount.png'),
+                            'lazada',
                             item.name,
                             item.start,
                             item.end,
                             item.code,
+                            item.url,
+                            auth.id,
                         ),
                     ),
                 );
@@ -68,7 +69,6 @@ export const DiscountScreen = ({ navigation }): React.ReactElement => {
                 renderItem={(info) => (
                     <DiscountItemComponent
                         info={info}
-                        onLikeItem={onLikeItem}
                         backgroundColorImg='#0F1372'
                         onPressDiscountItem={onPressDiscountItem}
                     />

@@ -4,15 +4,14 @@ import { FlashSaleItem } from '../../model/flashsale-item.model';
 import { FlashSaleItemComponent } from '../../components/flashsale-item.component';
 
 import TikiApi from '../../api/tiki.api';
+import useAuth from '../../hooks/useAuth';
 
 export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
 
     const [products, setProducts] = React.useState<FlashSaleItem[]>();
 
-    const onLikeItem = (info): void => {
-        console.log(info);
-    };
+    const { auth } = useAuth();
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -26,10 +25,11 @@ export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
                         new FlashSaleItem(
                             item._id,
                             item.sale_title,
-                            { uri: item.image },
+                            item.image,
                             item.sale_price,
                             item.origin_price,
                             item.link,
+                            auth.id,
                         ),
                     ),
                 );
@@ -46,11 +46,7 @@ export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
             data={products}
             numColumns={2}
             renderItem={(info) => (
-                <FlashSaleItemComponent
-                    info={info}
-                    onLikeItem={onLikeItem}
-                    isShowTag={false}
-                />
+                <FlashSaleItemComponent info={info} isShowTag={false} />
             )}
         />
     );

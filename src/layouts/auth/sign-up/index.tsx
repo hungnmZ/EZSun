@@ -29,7 +29,7 @@ const isValidEmail = (email: string) => {
 };
 
 export default ({ navigation }): React.ReactElement => {
-    const [fullName, setFullName] = React.useState<string>();
+    const [displayName, setDisplayName] = React.useState<string>();
     const [email, setEmail] = React.useState<string>();
     const [password, setPassword] = React.useState<string>();
     const [
@@ -41,7 +41,7 @@ export default ({ navigation }): React.ReactElement => {
 
     const onSignUpButtonPress = async (): Promise<void> => {
         // navigation && navigation.goBack();
-        if (!password || !email || !fullName) {
+        if (!password || !email || !displayName) {
             alert('All fields are required.');
             return;
         }
@@ -62,7 +62,7 @@ export default ({ navigation }): React.ReactElement => {
                 .createUserWithEmailAndPassword(email, password);
             const userSnapshot = await getSnapshotFromUserAuth(
                 userData.user,
-                {},
+                { displayName: displayName },
                 true,
             );
 
@@ -161,8 +161,8 @@ export default ({ navigation }): React.ReactElement => {
                     placeholder='Name'
                     label='FULL NAME'
                     autoCapitalize='words'
-                    value={fullName}
-                    onChangeText={setFullName}
+                    value={displayName}
+                    onChangeText={setDisplayName}
                 />
                 <Input
                     style={styles.formInput}
