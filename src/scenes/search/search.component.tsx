@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Input, Divider, TopNavigation, TopNavigationAction, List } from '@ui-kitten/components';
+import {
+    Input,
+    Divider,
+    TopNavigation,
+    TopNavigationAction,
+    List,
+} from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { ArrowIosBackIcon, SearchIcon, CloseIcon } from '../../components/icons';
+import {
+    ArrowIosBackIcon,
+    SearchIcon,
+    CloseIcon,
+} from '../../components/icons';
 import { MenuGridList } from '../../components/menu-grid-list.component';
 import { FlashSaleItem } from '../../model/flashsale-item.model';
 import { FlashSaleItemComponent } from '../../components/flashsale-item.component';
 
-import SearchApi from '../../api/search.api'
+import SearchApi from '../../api/search.api';
+import useAuth from '../../hooks/useAuth';
 
 export const SearchScreen = ({ navigation }): React.ReactElement => {
     const [products, setProducts] = useState([]);
     const [value, setValue] = useState('');
-    const onItemPress = (index: number): void => {
 
-    };
+    const { auth } = useAuth();
 
     const onSubmitSearch = async () => {
         const data = await SearchApi.getSearchProduct(value);
@@ -26,24 +36,23 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
                     new FlashSaleItem(
                         item._id,
                         item.sale_title,
-                        { uri: item.image },
+                        item.image,
                         item.sale_price,
                         item.origin_price,
-                        item.link
-                    )
-                )
+                        item.link,
+                        auth.id,
+                    ),
+                ),
             );
         }
 
         setProducts(temp);
-    }
-
+    };
 
     const BackAction = (): React.ReactElement => (
         <TopNavigationAction
             icon={ArrowIosBackIcon}
             onPress={() => navigation.goBack()}
-
         />
     );
 
@@ -55,10 +64,7 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
             }}
             style={{ opacity: 0.8 }}
         />
-
     );
-
-
 
     const SearchBar = (): React.ReactElement => (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -73,12 +79,13 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
                 onChangeText={(nextValue) => setValue(nextValue)}
                 keyboardType='web-search'
                 onSubmitEditing={onSubmitSearch}
-
                 icon={ClearAction}
+                autoCorrect={false}
             />
             <TopNavigationAction
                 icon={SearchIcon}
                 style={{ flex: 1, borderRadius: 20, left: 3 }}
+                onPress={onSubmitSearch}
             />
         </View>
     );
@@ -95,7 +102,7 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
                 data={products}
                 numColumns={2}
                 renderItem={(info) => (
-                    <FlashSaleItemComponent info={info} onLikeItem isShowTag={true} />
+                    <FlashSaleItemComponent info={info} isShowTag={true} />
                 )}
             />
         </SafeAreaLayout>
