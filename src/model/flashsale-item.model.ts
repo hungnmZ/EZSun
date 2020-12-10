@@ -23,4 +23,20 @@ export class FlashSaleItem {
         const indexOfMainLink = this.link.indexOf('=http');
         return this.link;
     }
+
+    get getLabelTag(): string {
+        let labelTag: string = 'Shopee';
+
+        if (this.link.includes('shopee')) {
+            labelTag = 'Shopee';
+        }
+        if (this.link.includes('tiki')) {
+            labelTag = 'Tiki';
+        }
+        if (this.link.includes('lazada')) {
+            labelTag = 'Lazada';
+        }
+
+        return labelTag;
+    }
 }

@@ -1,33 +1,64 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import {
-    Input,
-    Divider,
-    TopNavigation,
-    TopNavigationAction,
-} from '@ui-kitten/components';
+import { Input, Divider, TopNavigation, TopNavigationAction, List } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import {
-    ArrowIosBackIcon,
-    SearchIcon,
-    CloseIcon,
-} from '../../components/icons';
-import { data } from '../hot/data';
+import { ArrowIosBackIcon, SearchIcon, CloseIcon } from '../../components/icons';
 import { MenuGridList } from '../../components/menu-grid-list.component';
+import { FlashSaleItem } from '../../model/flashsale-item.model';
+import { FlashSaleItemComponent } from '../../components/flashsale-item.component';
+
+import SearchApi from '../../api/search.api'
 
 export const SearchScreen = ({ navigation }): React.ReactElement => {
+    const [products, setProducts] = useState([]);
+    const [value, setValue] = useState('');
     const onItemPress = (index: number): void => {
-        navigation.navigate(data[index].route);
+
     };
+
+    const onSubmitSearch = async () => {
+        const data = await SearchApi.getSearchProduct(value);
+        let temp: FlashSaleItem[] = [];
+
+        if (data.data.data.results) {
+            data.data.data.results.forEach((item: any) =>
+                temp.push(
+                    new FlashSaleItem(
+                        item._id,
+                        item.sale_title,
+                        { uri: item.image },
+                        item.sale_price,
+                        item.origin_price,
+                        item.link
+                    )
+                )
+            );
+        }
+
+        setProducts(temp);
+    }
+
 
     const BackAction = (): React.ReactElement => (
         <TopNavigationAction
             icon={ArrowIosBackIcon}
             onPress={() => navigation.goBack()}
+
         />
     );
 
-    const [value, setValue] = useState('');
+    const ClearAction = (): React.ReactElement => (
+        <TopNavigationAction
+            icon={CloseIcon}
+            onPress={() => {
+                setValue('');
+            }}
+            style={{ opacity: 0.8 }}
+        />
+
+    );
+
+
 
     const SearchBar = (): React.ReactElement => (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -41,6 +72,9 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
                 value={value}
                 onChangeText={(nextValue) => setValue(nextValue)}
                 keyboardType='web-search'
+                onSubmitEditing={onSubmitSearch}
+
+                icon={ClearAction}
             />
             <TopNavigationAction
                 icon={SearchIcon}
@@ -56,12 +90,13 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
                 rightControls={SearchBar()}
             />
             <Divider />
-            <MenuGridList
-                // em lấy data từ trang hot để hiển thị cho trang này luôn
-                data={data.filter((item) =>
-                    item.title.toLowerCase().includes(value.toLowerCase()),
+            <List
+                contentContainerStyle={styles.productList}
+                data={products}
+                numColumns={2}
+                renderItem={(info) => (
+                    <FlashSaleItemComponent info={info} onLikeItem isShowTag={true} />
                 )}
-                onItemPress={onItemPress}
             />
         </SafeAreaLayout>
     );
@@ -70,5 +105,9 @@ export const SearchScreen = ({ navigation }): React.ReactElement => {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
+    },
+    productList: {
+        paddingHorizontal: 8,
+        paddingVertical: 16,
     },
 });
