@@ -47,12 +47,14 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                         Giới tính
                     </Text>
                     <RadioButton
+                        color='#ff7620'
                         value='Nữ'
                         status={gioiTinh === 'nu' ? 'checked' : 'unchecked'}
                         onPress={() => setGioiTinh('nu')}
                     />
                     <Text style={{ marginTop: 8, marginRight: 10 }}>Nữ</Text>
                     <RadioButton
+                        color='#ff7620'
                         value='Nam'
                         status={gioiTinh === 'nam' ? 'checked' : 'unchecked'}
                         onPress={() => setGioiTinh('nam')}
@@ -71,17 +73,6 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                         onChangeText={(nextValue) => setSdt(nextValue)}
                     />
                 </View>
-                
-                {/* 
-        <View style={{flex: 1,  flexDirection: 'row'}}>
-          <Text style={{flex: 1,marginTop:10,color:'gray'}}>Mật khẩu</Text>
-          <Input
-            style={{flex: 2, backgroundColor:'#fff'}}
-            placeholder=''
-            value={value}
-            onChangeText={nextValue => setValue(nextValue)}
-          />
-        </View> */}
             </View>
         ) : (
             <View>

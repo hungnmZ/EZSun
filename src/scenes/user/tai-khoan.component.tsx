@@ -50,9 +50,8 @@ export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
             <React.Fragment>
                 <Button
                     onPress={clickEdit}
-                    style={{ margin: 2, paddingLeft: 18, paddingRight: 18 }}
+                    style={{ margin: 2, paddingLeft: 18, paddingRight: 18, backgroundColor: '#ff6720', borderColor: '#ff6720' }}
                     size='small'
-                    status='primary'
                 >
                     Edit
                 </Button>
@@ -61,9 +60,8 @@ export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
             <React.Fragment>
                 <Button
                     onPress={clickSave}
-                    style={{ margin: 2, paddingLeft: 15, paddingRight: 15 }}
+                    style={{ margin: 2, paddingLeft: 15, paddingRight: 15, backgroundColor: '#ff6720', borderColor: '#ff6720' }}
                     size='small'
-                    status='primary'
                 >
                     Save
                 </Button>

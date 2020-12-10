@@ -33,7 +33,7 @@ export const DoiMatKhauScreen = ({ navigation }): React.ReactElement => {
         }
         var user = firebase.auth().currentUser;
         var credential = firebase.auth.EmailAuthProvider.credential(
-            firebase.auth().currentUser.email,
+            user.email,
             oldPass
         );
 
@@ -41,10 +41,7 @@ export const DoiMatKhauScreen = ({ navigation }): React.ReactElement => {
 
         user.reauthenticateWithCredential(credential).then(function() {
             // User re-authenticated.
-            var user = firebase.auth().currentUser;
             user.updatePassword(newPass).then(function() {
-                console.log(navigation);
-                console.log(firebase.auth().currentUser);
                 // Update successful.
                 alert('Đổi mật khẩu thành công');
                 setOldPass('');
@@ -66,7 +63,7 @@ export const DoiMatKhauScreen = ({ navigation }): React.ReactElement => {
             <Divider />
             <Input
                 value={oldPass}
-                style={{margin:15,backgroundColor:'#fff'}}
+                style={{margin:15}}
                 placeholder='Mật khẩu cũ'
                 icon={renderIcon}
                 secureTextEntry={secureTextEntry}
@@ -75,7 +72,7 @@ export const DoiMatKhauScreen = ({ navigation }): React.ReactElement => {
             />
             <Input
                 value={newPass}
-                style={{marginLeft:15,marginRight:15,backgroundColor:'#fff'}}
+                style={{marginLeft:15,marginRight:15}}
                 placeholder='Mật khẩu mới'
                 icon={renderIcon}
                 secureTextEntry={secureTextEntry}
@@ -84,7 +81,7 @@ export const DoiMatKhauScreen = ({ navigation }): React.ReactElement => {
             />
             <Input
                 value={reNewPass}
-                style={{margin:15,backgroundColor:'#fff'}}
+                style={{margin:15}}
                 placeholder='Nhập lại mật khẩu mới'
                 icon={renderIcon}
                 secureTextEntry={secureTextEntry}
@@ -93,7 +90,7 @@ export const DoiMatKhauScreen = ({ navigation }): React.ReactElement => {
             />
 
             <Button 
-                style={{borderRadius: 4, margin: 15,backgroundColor: '#3366FF'}} 
+                style={{borderRadius: 4, margin: 15,backgroundColor: '#ff7620'}} 
                 appearance='ghost' 
                 onPress={()=>{changePass(oldPass,newPass,reNewPass),navigation.goBack}}
                 status='control'>
