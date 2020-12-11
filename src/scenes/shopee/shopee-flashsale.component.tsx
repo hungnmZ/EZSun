@@ -8,13 +8,14 @@ import useAuth from '../../hooks/useAuth';
 export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
 
-    const [products, setProducts] = React.useState<FlashSaleItem[]>();
+    const [products, setProducts] = React.useState<FlashSaleItem[]>([]);
+    const [pageIndex, setPageIndex] = React.useState(1);
 
     const { auth } = useAuth();
 
     React.useEffect(() => {
         const fetchData = async () => {
-            const data: any = await ShopeeApi.getFlashSale();
+            const data: any = await ShopeeApi.getFlashSale(pageIndex);
 
             let temp: FlashSaleItem[] = [];
 
@@ -34,13 +35,15 @@ export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
                 );
             }
 
-            setProducts(temp);
+            setProducts(products?.concat(temp));
         };
         fetchData();
-    }, []);
+    }, [pageIndex]);
 
     return (
         <List
+            onEndReached={() => setPageIndex(pageIndex + 1)}
+            onEndReachedThreshold={0.5}
             contentContainerStyle={styles.productList}
             data={products}
             numColumns={2}
