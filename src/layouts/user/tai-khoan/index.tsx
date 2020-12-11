@@ -6,12 +6,12 @@ import { RadioButton } from 'react-native-paper';
 
 const data: Article[] = [Article.howToEatHealthy()];
 
-export default ({ isEdit, isSave, navigation }): React.ReactElement => {
+export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
     const [ngaysinh, setNgaySinh] = React.useState(new Date());
-    const [ten, setTen] = React.useState('Châu');
-    const [email, setEmail] = React.useState('abc@gmail.com');
-    const [sdt, setSdt] = React.useState('0987654321');
-    const [gioiTinh, setGioiTinh] = React.useState('nu');
+    const [ten, setTen] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [sdt, setSdt] = React.useState('');
+    const [gioiTinh, setGioiTinh] = React.useState('');
 
     const renderItem = (
         info: ListRenderItemInfo<Article>,
@@ -25,8 +25,8 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                     <Input
                         style={{ flex: 2 }}
                         placeholder=''
-                        value={ten}
-                        onChangeText={(nextValue) => setTen(nextValue)}
+                        value={user.username}
+                        onChangeText={(nextValue) => {setTen(nextValue);user.username=nextValue}}
                     />
                 </View>
 
@@ -38,7 +38,7 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                         min={new Date(1900, 1, 1)}
                         style={{ flex: 2 }}
                         date={ngaysinh}
-                        onSelect={(nextDate) => setNgaySinh(nextDate)}
+                        onSelect={(nextDate) => {setNgaySinh(nextDate);user.birthday = nextDate}}
                     />
                 </View>
 
@@ -49,15 +49,15 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                     <RadioButton
                         color='#ff7620'
                         value='Nữ'
-                        status={gioiTinh === 'nu' ? 'checked' : 'unchecked'}
-                        onPress={() => setGioiTinh('nu')}
+                        status={user.gender === 'nu' ? 'checked' : 'unchecked'}
+                        onPress={() => {setGioiTinh('nu');user.gender='nu'}}
                     />
                     <Text style={{ marginTop: 8, marginRight: 10 }}>Nữ</Text>
                     <RadioButton
                         color='#ff7620'
                         value='Nam'
-                        status={gioiTinh === 'nam' ? 'checked' : 'unchecked'}
-                        onPress={() => setGioiTinh('nam')}
+                        status={user.gender === 'nam' ? 'checked' : 'unchecked'}
+                        onPress={() => {setGioiTinh('nam');user.gender='nam'}}
                     />
                     <Text style={{ marginTop: 8 }}>Nam</Text>
                 </View>
@@ -69,8 +69,8 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                     <Input
                         style={{ flex: 2 }}
                         placeholder=''
-                        value={sdt}
-                        onChangeText={(nextValue) => setSdt(nextValue)}
+                        value={user.phoneNumber}
+                        onChangeText={(nextValue) => {setSdt(nextValue);user.phoneNumber=nextValue}}
                     />
                 </View>
             </View>
@@ -87,7 +87,7 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                     }}
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Tên</Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{ten}</Text>
+                    <Text style={{ flex: 2, textAlign: 'right' }}>{user.username}</Text>
                 </View>
 
                 <View
@@ -120,7 +120,7 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Giới tính</Text>
                     <Text style={{ flex: 2, textAlign: 'right' }}>
-                        {gioiTinh == 'nu' ? 'Nữ' : 'Nam'}
+                        {user.gender == 'nu' ? 'Nữ' : 'Nam'}
                     </Text>
                 </View>
 
@@ -137,7 +137,7 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                     <Text style={{ flex: 1, color: 'gray' }}>
                         Số điện thoại
                     </Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{sdt}</Text>
+                    <Text style={{ flex: 2, textAlign: 'right' }}>{user.phoneNumber}</Text>
                 </View>
 
                 <View
@@ -151,7 +151,7 @@ export default ({ isEdit, isSave, navigation }): React.ReactElement => {
                     }}
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Email</Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{email}</Text>
+                    <Text style={{ flex: 2, textAlign: 'right' }}>{user.email}</Text>
                 </View>
             </View>
         );

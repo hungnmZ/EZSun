@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from 'react';
+import React, { useCallback, useReducer, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import {
     Button,
@@ -11,9 +11,42 @@ import ContentView from '../../layouts/user/tai-khoan';
 import { firebase } from '../../firebase/config';
 
 export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
+    const db = firebase.firestore();
+    console.log(db);
+    var userId = firebase.auth().currentUser.uid;
+    const userRef = db.doc('/users/' + userId);
+        
     const [user, setUser] = React.useState(firebase.auth().currentUser);
+    // const [userCreate, setUserCreate] = React.useState({
+    //     email:user.email,
+    //     username: '',
+    //     birthday:'',
+    //     gender:'',
+    //     phoneNumber:''
+
+    // });
+    
+    
+    
+    // const [userCustom, setUserCustom] = React.useState<any>( {
+    //     email:user.email,
+    //     username: '',
+    //     birthday:'',
+    //     gender:'nu',
+    //     phoneNumber:''
+
+    // });
+
+    const [userCustom, setUserCustom] = React.useState<any>( {
+        
+
+    });
+
+
     const [isEdit, setEditBol] = React.useState(false);
     const [isSave, setSaveBol] = React.useState(true);
+
+    
 
     const renderBackAction = (): React.ReactElement => (
         <TopNavigationAction
@@ -33,16 +66,27 @@ export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
         setSaveBol(true);
         renderOverflowMenuAction();
         setUser(user);
-        console.log(user);
-        user.updateProfile({
-            displayName: user.displayName
-        }).then(function() {
-            // Update successful.
-            console.log("sucess");
+    
+        userRef.set({
+            username: userCustom.username,
+            email: userCustom.email,
+            phoneNumber: userCustom.phoneNumber,
+            birthday: userCustom.birthday,
+            gender: userCustom.gender
+        })
+        console.log(userCustom);
+
+        userRef.get().then(function(doc) {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
         }).catch(function(error) {
-            // An error happened.
-            console.log("err");
+            console.log("Error getting document:", error);
         });
+        
     };
 
     const renderOverflowMenuAction = () =>
@@ -68,6 +112,26 @@ export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
             </React.Fragment>
         );
 
+        
+    React.useEffect(() => {
+        
+        const fetchData = async () => {
+            
+            let doc = await userRef.get();
+            let userCreate: any= {};
+            userCreate.email = doc.data().email;
+            userCreate.username = doc.data().username;
+            userCreate.birthday = doc.data().birthday;
+            userCreate.gender = doc.data().gender;
+            userCreate.phoneNumber = doc.data().phoneNumber;
+            console.log(userCreate);
+            setUserCustom(userCreate);
+            
+        };
+
+        fetchData();
+    }, []);
+    
     return (
         <SafeAreaLayout style={styles.container} insets='top'>
             <TopNavigation
@@ -79,6 +143,7 @@ export const TaiKhoanScreen = ({ navigation }): React.ReactElement => {
                 isEdit={isEdit}
                 isSave={isSave}
                 navigation={navigation}
+                user={userCustom}
             />
         </SafeAreaLayout>
     );

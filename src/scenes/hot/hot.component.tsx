@@ -51,7 +51,7 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
             <TopNavigationDefault navigation={navigation} />
             <Divider />
             <View style={styles.sliderContainer}>
-                <Swiper autoplay activeDotColor={'#EE4D2D'}>
+                {/* <Swiper autoplay activeDotColor={'#EE4D2D'}>
                     <View>
                         <Image
                             source={require('../../assets/images/banner-lazada.jpg')}
@@ -73,7 +73,7 @@ export const HotScreen = ({ navigation }): React.ReactElement => {
                             style={styles.sliderImage}
                         />
                     </View>
-                </Swiper>
+                </Swiper> */}
             </View>
             <List
                 contentContainerStyle={styles.productList}
