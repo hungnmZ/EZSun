@@ -1,9 +1,9 @@
 import httpService from '../services/http.service';
 
 export default {
-    getFlashSale: async () =>
+    getFlashSale: async (pageIndex) =>
         await httpService.get(
-            'https://api.sunsale.vn/api/v1/pages/products/Tiki?page=5&quantity=50',
+            `https://api.sunsale.vn/api/v1/pages/products/Tiki?page=${pageIndex}&quantity=20`,
         ),
     getDiscount: async () =>
         await httpService.get(
