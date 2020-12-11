@@ -25,8 +25,11 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                     <Input
                         style={{ flex: 2 }}
                         placeholder=''
-                        value={user.username}
-                        onChangeText={(nextValue) => {setTen(nextValue);user.username=nextValue}}
+                        value={user.displayName}
+                        onChangeText={(nextValue) => {
+                            setTen(nextValue);
+                            user.displayName = nextValue;
+                        }}
                     />
                 </View>
 
@@ -38,7 +41,10 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                         min={new Date(1900, 1, 1)}
                         style={{ flex: 2 }}
                         date={ngaysinh}
-                        onSelect={(nextDate) => {setNgaySinh(nextDate);user.birthday = nextDate}}
+                        onSelect={(nextDate) => {
+                            setNgaySinh(nextDate);
+                            user.birthday = nextDate;
+                        }}
                     />
                 </View>
 
@@ -50,14 +56,20 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                         color='#ff7620'
                         value='Nữ'
                         status={user.gender === 'nu' ? 'checked' : 'unchecked'}
-                        onPress={() => {setGioiTinh('nu');user.gender='nu'}}
+                        onPress={() => {
+                            setGioiTinh('nu');
+                            user.gender = 'nu';
+                        }}
                     />
                     <Text style={{ marginTop: 8, marginRight: 10 }}>Nữ</Text>
                     <RadioButton
                         color='#ff7620'
                         value='Nam'
                         status={user.gender === 'nam' ? 'checked' : 'unchecked'}
-                        onPress={() => {setGioiTinh('nam');user.gender='nam'}}
+                        onPress={() => {
+                            setGioiTinh('nam');
+                            user.gender = 'nam';
+                        }}
                     />
                     <Text style={{ marginTop: 8 }}>Nam</Text>
                 </View>
@@ -70,7 +82,10 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                         style={{ flex: 2 }}
                         placeholder=''
                         value={user.phoneNumber}
-                        onChangeText={(nextValue) => {setSdt(nextValue);user.phoneNumber=nextValue}}
+                        onChangeText={(nextValue) => {
+                            setSdt(nextValue);
+                            user.phoneNumber = nextValue;
+                        }}
                     />
                 </View>
             </View>
@@ -87,7 +102,9 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                     }}
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Tên</Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{user.username}</Text>
+                    <Text style={{ flex: 2, textAlign: 'right' }}>
+                        {user.displayName}
+                    </Text>
                 </View>
 
                 <View
@@ -137,7 +154,9 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                     <Text style={{ flex: 1, color: 'gray' }}>
                         Số điện thoại
                     </Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{user.phoneNumber}</Text>
+                    <Text style={{ flex: 2, textAlign: 'right' }}>
+                        {user.phoneNumber}
+                    </Text>
                 </View>
 
                 <View
@@ -151,7 +170,9 @@ export default ({ isEdit, isSave, navigation, user }): React.ReactElement => {
                     }}
                 >
                     <Text style={{ flex: 1, color: 'gray' }}>Email</Text>
-                    <Text style={{ flex: 2, textAlign: 'right' }}>{user.email}</Text>
+                    <Text style={{ flex: 2, textAlign: 'right' }}>
+                        {user.email}
+                    </Text>
                 </View>
             </View>
         );
