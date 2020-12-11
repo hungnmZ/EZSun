@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import {
     Button,
     CheckBox,
     Datepicker,
     Divider,
+    Icon,
     Input,
     StyleService,
     Text,
@@ -17,6 +18,8 @@ import {
     GoogleIcon,
     HeartIconFill,
     TwitterIcon,
+    EyeIcon,
+    EyeOffIcon,
 } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
 import { firebase, getSnapshotFromUserAuth } from '../../../firebase/config';
@@ -36,8 +39,18 @@ export default ({ navigation }): React.ReactElement => {
         passwordConfirmation,
         setPasswordConfirmation,
     ] = React.useState<string>();
+    const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
+    const [passwordConfirmVisible, setPasswordConfirmVisible] = React.useState<boolean>(false);
     const { dispatch } = useAppState();
     const styles = useStyleSheet(themedStyles);
+
+    const onPasswordIconPress = (): void => {
+        setPasswordVisible(!passwordVisible);
+    };
+
+    const onPasswordConfirmIconPress = (): void => {
+        setPasswordConfirmVisible(!passwordConfirmVisible);
+    };
 
     const onSignUpButtonPress = async (): Promise<void> => {
         // navigation && navigation.goBack();
@@ -176,15 +189,22 @@ export default ({ navigation }): React.ReactElement => {
                     style={styles.formInput}
                     label='PASSWORD'
                     placeholder='Password'
+                    icon={passwordVisible ? EyeIcon : EyeOffIcon}
+                    secureTextEntry={!passwordVisible}
                     value={password}
                     onChangeText={setPassword}
+                    onIconPress={onPasswordIconPress}
                 />
                 <Input
                     style={styles.formInput}
                     label='PASSWORD CONFIRMATION'
                     placeholder='Password confirmation'
+                    icon={passwordConfirmVisible ? EyeIcon : EyeOffIcon}
+                    secureTextEntry={!passwordConfirmVisible}
                     value={passwordConfirmation}
                     onChangeText={setPasswordConfirmation}
+                    onIconPress={onPasswordConfirmIconPress}
+
                 />
             </View>
             <Button
