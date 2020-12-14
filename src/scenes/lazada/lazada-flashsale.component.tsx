@@ -10,7 +10,7 @@ export const FlashSaleScreen = ({ navigation }): React.ReactElement => {
     const styles = useStyleSheet(themedStyles);
 
     const [products, setProducts] = React.useState<FlashSaleItem[]>([]);
-    const [pageIndex, setPageIndex] = React.useState(1);
+    const [pageIndex, setPageIndex] = React.useState(10);
 
     const { auth } = useAuth();
 

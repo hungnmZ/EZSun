@@ -39,8 +39,13 @@ export default ({ navigation }): React.ReactElement => {
         passwordConfirmation,
         setPasswordConfirmation,
     ] = React.useState<string>();
-    const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
-    const [passwordConfirmVisible, setPasswordConfirmVisible] = React.useState<boolean>(false);
+    const [passwordVisible, setPasswordVisible] = React.useState<boolean>(
+        false,
+    );
+    const [
+        passwordConfirmVisible,
+        setPasswordConfirmVisible,
+    ] = React.useState<boolean>(false);
     const { dispatch } = useAppState();
     const styles = useStyleSheet(themedStyles);
 
@@ -194,6 +199,7 @@ export default ({ navigation }): React.ReactElement => {
                     value={password}
                     onChangeText={setPassword}
                     onIconPress={onPasswordIconPress}
+                    autoCorrect={false}
                 />
                 <Input
                     style={styles.formInput}
@@ -204,7 +210,7 @@ export default ({ navigation }): React.ReactElement => {
                     value={passwordConfirmation}
                     onChangeText={setPasswordConfirmation}
                     onIconPress={onPasswordConfirmIconPress}
-
+                    autoCorrect={false}
                 />
             </View>
             <Button
